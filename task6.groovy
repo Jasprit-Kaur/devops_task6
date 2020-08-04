@@ -28,7 +28,7 @@ upstream('task6_job1', 'SUCCESS')
 }
 steps{
 remoteShell('root@192.168.99.100:22') {
-command('''cd /task6-ws
+command('''cd /taskk6
 if sudo ls | grep .php
 then
 if sudo kubectl get deployment | grep phpservice
