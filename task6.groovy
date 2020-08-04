@@ -1,17 +1,18 @@
 job("task6_job1"){
-  description("Pull files from github repo when some developers push code to github")
-  scm{
-    github("Jasprit-Kaur/devops_code6","master")
+description("Pull files from github repo when some developers push code to github")
+scm{
+github("Jasprit-Kaur/devops_code6","master")
   }
-  triggers {
-    scm("* * * * *")
+triggers {
+scm("* * * * *")
   }
-  steps{
-    remoteShell('root@192.168.99.100:22') {
-    command('''rm -rvf /root/task6/*
+steps{
+remoteShell('root@192.168.99.100:22') {
+command('''rm -rvf /root/task6/*
 cp -rvf * /root/task6/
 ''')
-  }
+}
+}
 }
 
 job('task6_job2'){
