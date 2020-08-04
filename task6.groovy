@@ -61,7 +61,7 @@ steps{
 remoteShell('root@192.168.99.100:22') {
 command('''if sudo kubectl get pods | grep phpserver
 then
-php_status_code=$(curl -o /dev/null -s -w "%{http_code}" 192.168.99.100:31000)
+php_status_code=$(curl -o /dev/null -s -w "%{http_code}" 192.168.99.101:31000)
 if [[ $php_status_code == 200 ]]
 then
 echo "The PHP server is working fine"
