@@ -7,12 +7,12 @@ job("task6_job1"){
     scm("* * * * *")
   }
   steps{
-    shell('''if ls / | grep task6
+    shell('''if ls /root | grep task6
 then
-sudo cp -rvf * /task6
+sudo cp -rvf * /root/task6
 else
-sudo mkdir /task6
-sudo cp -rvf * /task6
+sudo mkdir /root/task6
+sudo cp -rvf * /root/task6
 fi  
 ''')
   }
@@ -26,14 +26,14 @@ triggers {
 upstream('task6_job1', 'SUCCESS')
 }
 steps{
-remoteShell('root@192.168.43.176:22') {
+remoteShell('root@192.168.99.100:22') {
 command('''if sudo ls /root/task6 | grep .php
 then
-if sudo kubectl get deployment | grep phpserver
+if sudo kubectl get deployment | grep phpservice
 then
 echo "The PHP Deployment is already running"
 else
-sudo kubectl create -f /root/phpserver.yml
+sudo kubectl create -f /root/task6/php.yml
 sleep 6
 if kubectl get pods | grep php
 then
@@ -58,10 +58,10 @@ triggers {
 upstream('task6_job2','SUCCESS')
 }
 steps{
-remoteShell('root@192.168.43.176:22') {
+remoteShell('root@192.168.99.100:22') {
 command('''if sudo kubectl get pods | grep phpserver
 then
-php_status_code=$(curl -o /dev/null -s -w "%{http_code}" 192.168.99.100:32000)
+php_status_code=$(curl -o /dev/null -s -w "%{http_code}" 192.168.99.100:31000)
 if [[ $php_status_code == 200 ]]
 then
 echo "The PHP server is working fine"
