@@ -1,23 +1,21 @@
 job("task6_job1"){
-description("Pull files from github repo when some developers push code to github")
+description("First Job: To download content from GitHub")
+        
 scm{
-github('Jasprit-Kaur/devops_code6', 'master')
-  }
-triggers {
-scm("* * * * *")
-  }
-steps{
-remoteShell('root@192.168.99.100:22') {
-command('''rm -rvf /root/task6
-sudo mkdir /root/task6
-sudo cp * /root/task6/
-''')
+github('Jasprit-kaur/devops_code6', 'master')
 }
+triggers {
+scm('* * * * *')
+}
+steps {
+shell('''rm -rvf /root/taskk6/*
+cp -rvf * /root/taskk6/
+''')
 }
 }
 
 job('task6_job2'){
-description("Second Job: Deploying respective webpages on the server")
+description("Second Job: To deploy respective webpages on the server")
 
 
 triggers {  
@@ -25,18 +23,18 @@ upstream('task6_job1', 'SUCCESS')
 }
 steps{
 remoteShell('root@192.168.99.100:22') {
-command('''if sudo ls /root/task6 | grep .php
+command('''if sudo ls /root/taskk6 | grep .php
 then
 if sudo kubectl get deployment | grep phpservice
 then
 echo "The PHP Deployment is already running"
 else
-sudo kubectl create -f /root/task6/php.yml
+sudo kubectl create -f /root/taskk6/php.yml
 sleep 6
 if kubectl get pods | grep php
 then
 b=$(sudo kubectl get pods -o 'jsonpath={.items[0].metadata.name}')
-sudo kubectl cp /root/task6/index.php $b:/var/www/html
+sudo kubectl cp /root/taskk6/index.php $b:/var/www/html
 else
 echo "Cannot copy the PHP code"
 fi
