@@ -16,6 +16,10 @@ sudo mkdir /taskk6
 sudo cp -rf * /taskk6
 fi  
 ''')
+remoteShell('root@192.168.99.100:22') {
+command('''sudo docker cp devops6task:/root/taskk6 /root
+''')
+}
 }
 }
 
