@@ -7,7 +7,8 @@ job("task6_job1"){
     scm("* * * * *")
   }
   steps{
-    shell('''rm -rvf /root/task6/*
+    remoteShell('root@192.168.99.100:22') {
+    command('''rm -rvf /root/task6/*
 cp -rvf * /root/task6/
 ''')
   }
