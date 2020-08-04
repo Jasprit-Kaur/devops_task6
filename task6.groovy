@@ -7,13 +7,8 @@ job("task6_job1"){
     scm("* * * * *")
   }
   steps{
-    shell('''if ls /root | grep task6
-then
-sudo cp -rvf * /root/task6
-else
-sudo mkdir /root/task6
-sudo cp -rvf * /root/task6
-fi  
+    shell('''rm -rvf /root/task6/*
+cp -rvf * /root/task6/
 ''')
   }
 }
