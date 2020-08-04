@@ -8,8 +8,13 @@ triggers {
 scm('* * * * *')
 }
 steps {
-shell('''rm -rvf /root/taskk6/*
-cp -rvf * /root/taskk6/
+shell('''if ls / | grep taskk6
+then
+sudo cp -rf * /taskk6
+else
+sudo mkdir /taskk6
+sudo cp -rf * /taskk6
+fi  
 ''')
 }
 }
@@ -23,7 +28,8 @@ upstream('task6_job1', 'SUCCESS')
 }
 steps{
 remoteShell('root@192.168.99.100:22') {
-command('''if sudo ls /root/taskk6 | grep .php
+command('''cd /task6-ws
+if sudo ls | grep .php
 then
 if sudo kubectl get deployment | grep phpservice
 then
