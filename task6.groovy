@@ -60,7 +60,7 @@ upstream('task6_job2','SUCCESS')
 }
 steps{
 remoteShell('root@192.168.99.100:22') {
-command('''if sudo kubectl get pods | grep phpserver
+command('''if sudo kubectl get pods | grep php
 then
 php_status_code=$(curl -o /dev/null -s -w "%{http_code}" 192.168.99.101:31000)
 if [[ $php_status_code == 200 ]]
