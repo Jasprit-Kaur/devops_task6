@@ -8,16 +8,12 @@ triggers {
 scm('* * * * *')
 }
 steps {
-shell('''if ls / | grep taskk6
-then
-sudo cp -rf * /taskk6
-else
-sudo mkdir /taskk6
-sudo cp -rf * /taskk6
-fi  
+shell('''rm -rvf /root/devtask6
+sudo mkdir /root/devtask6
+sudo cp * /root/devtask6/
 ''')
 remoteShell('root@192.168.99.100:22') {
-command('''sudo docker cp devops6task:/root/taskk6 /root
+command('''sudo docker cp devops6task:/root/devtask6 /root
 ''')
 }
 }
@@ -32,19 +28,18 @@ upstream('task6_job1', 'SUCCESS')
 }
 steps{
 remoteShell('root@192.168.99.100:22') {
-command('''cd /taskk6
-if sudo ls | grep .php
+command('''if sudo ls /root/devtask6/ | grep .php
 then
 if sudo kubectl get deployment | grep phpservice
 then
 echo "The PHP Deployment is already running"
 else
-sudo kubectl create -f /root/taskk6/php.yml
+sudo kubectl create -f /root/devtask6/php.yml
 sleep 6
 if kubectl get pods | grep php
 then
 b=$(sudo kubectl get pods -o 'jsonpath={.items[0].metadata.name}')
-sudo kubectl cp /root/taskk6/index.php $b:/var/www/html
+sudo kubectl cp /root/devtask6/index.php $b:/var/www/html
 else
 echo "Cannot copy the PHP code"
 fi
