@@ -35,7 +35,7 @@ then
 echo "The PHP Deployment is already running"
 else
 sudo kubectl create -f /root/devtask6/php.yml
-sleep 6
+sleep 20
 if kubectl get pods | grep php
 then
 b=$(sudo kubectl get pods -o 'jsonpath={.items[0].metadata.name}')
