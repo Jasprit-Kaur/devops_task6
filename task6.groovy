@@ -1,7 +1,7 @@
 job("task6_job1"){
 description("Pull files from github repo when some developers push code to github")
 scm{
-github("Jasprit-Kaur/devops_code6","master")
+github('Jasprit-Kaur/devops_code6', 'master')
   }
 triggers {
 scm("* * * * *")
