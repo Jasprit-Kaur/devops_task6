@@ -8,8 +8,9 @@ scm("* * * * *")
   }
 steps{
 remoteShell('root@192.168.99.100:22') {
-command('''rm -rvf /root/task6/*
-cp -rvf * /root/task6/
+command('''rm -rvf /root/task6
+sudo mkdir /root/task6
+sudo cp * /root/task6/
 ''')
 }
 }
